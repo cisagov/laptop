@@ -1,20 +1,17 @@
 Laptop
 ======
-[![Build Status](https://circleci.com/gh/18F/laptop.svg)](https://circleci.com/gh/18F/laptop)
 
-Laptop is a script to set up an OS X computer for web development, and to keep
-it up to date.
+Laptop is a script to set up an OS X computer for web development, and to keep it up to date.
 
-It can be run multiple times on the same machine safely.
-It installs, upgrades, or skips packages
-based on what is already installed on the machine.
+It can be run multiple times on the same machine safely. It installs, upgrades, or skips packages based on what is already installed on the machine.
 
 Requirements
 ------------
 
 We support:
 
-* [macOS Sierra (10.12)](https://www.apple.com/osx/)
+* [macOS Catalina](https://www.apple.com/osx/)
+* macOS Sierra (10.12)
 * OS X El Capitan (10.11)
 * OS X Yosemite (10.10)
 * OS X Mavericks (10.9)
@@ -34,9 +31,9 @@ and once it appears, press `return` to launch it.
 In your Terminal window, copy and paste the command below, then press `return`.
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/18F/laptop/master/laptop)
+bash <(curl -s https://raw.githubusercontent.com/cisagov/laptop/master/laptop)
 ```
-The [script](https://github.com/18F/laptop/blob/master/mac) itself is
+The [script](https://github.com/cisagov/laptop/blob/master/mac) itself is
 available in this repo for you to review if you want to see what it does
 and how it works.
 
@@ -57,134 +54,27 @@ at your convenience by typing `laptop` and hitting `return` in your Terminal.
 [Spotlight]: https://support.apple.com/en-us/HT204014
 [video]: https://github.com/18F/laptop/wiki/Detailed-installation-instructions-with-video
 
-### Want to install just git-seekret?
-In your terminal window, copy and paste the following line, and press `return`:
-```sh
-curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
-```
-Note that the script may ask you to enter your password. This is the same password that you use to log in to your computer.
-
-> git-seekret requires git 2.9.1 or higher.  Some versions of Ubuntu ship with an older version.  To update your git before installing git-seekret:
-> 
-> ```
-> sudo add-apt-repository ppa:git-core/ppa
-> sudo apt-get update
-> ```
-
-**git-seekret will install global git hooks into ~/.git-support/hooks.   To restore pre-existing git hooks, it is recommended to save pre-existing hooks into a separate directory and to copy those hooks into ~/.git-support/hooks after git-seekret is installed.**
-
-Development
------------
-
-### Git Seekret
-
-This section covers contributing and developing new rulesets for `git-seekrets`.
-
-The rules installed by the `seekret-install` script are located in the `seekret-rules` directory at the root of this repository.  Inside each rule file is a list of rules.  The rule file can be considered a tree with the rules as the leaves of the tree.
-
-An example rule file is below:
-
-```yaml
-thing_to_match:
-  match: r[egx]{2,}p?
-  unmatch:
-    - some_prefix\s*r[egx]{2,}p?
-    - r[egx]{2,}p?\s*some_suffix
-```
-
-Using the example above, let's break down each stanza:
-
-- `thing_to_match` : The name of the rule we'd like to match / unmatch. This can be anything that makes sense for the `.rule` file being created / edited.
-- `match` : A single regular expression which will be used to match any rules for the name above.
-- `unmatch` : A list of regular expressions which will be used to unmatch anything that the `match` rule matches.
-
-Feel free to submit an issue/create a pull request in order to submit a new ruleset or to apply a modifification to an existing ruleset.
-
-#### Testing Git Seekrets
-
-You can test secret rulesets using BATS for automated testing and manually using the installation script.
-
-##### Let's talk about BATS
-
-Please read the [local BATS documentation](./test).
-
-##### Let's talk about local manual testing
-
-To install the `*.rule` files located in the repo, just run the installation script locally. This will update your local `~/.git-support/seekret-rules` directory with the changes in this repository.
-
-```shell
-./seekrets-install
-```
-
-You should now be able to run the check within any repository on your machine.
-
-```shell
-git seekret check -c 0 # check for secrets within commit history
-```
-
-```shell
-git seekret check -s # check for secrets within staged files
-```
-
-Debugging
----------
-
-Your last Laptop run will be saved to `~/laptop.log`. Read through it to see if
-you can debug the issue yourself. If not, copy and paste the entire log into a
-[new GitHub Issue](https://github.com/18F/laptop/issues/new) for us.
-
-#### Git Seekrets False Positives
-
-Sometimes the `git-seekrets` rules may indicate a false positive and match
-things that aren't actually secrets. This can happen if the regular
-expressions used to `match` and `unmatch` are too strict.
-
-Make sure you have [the latest rulesets from this repository by running the
-git-seekrets installation script](#want-to-install-just-git-seekret).
-
-If the ruleset is still triggering a false positive, please open an issue
-(or a pull request if you know how to fix the regular expression), and
-include the text that is being treated as a false positive, along with the
-rules installed on your computer. Please run this command to output
-your current rules, then copy and paste them into the GitHub issue:
-
-```shell
-cat ~/.git-support/seekret-rules/*.rule
-```
-
 What it sets up
 ---------------
 
 * [ChromeDriver] for headless website testing
 * [chruby] for managing [Ruby] versions (or, when using a fish shell, [rbenv])
-* [CloudApp] for sharing screenshots and making an animated GIF from a video
-* [Cloud Foundry CLI] for command line access to 18F's Cloud Foundry-based application platform
 * [Docker] for all your containerization needs
-* [git-seekret] for preventing you from committing passwords and other sensitive information to a git repository
 * [GitHub Desktop] for setting up your SSH keys automatically
 * [Homebrew] for managing operating system libraries
-* [Homebrew Cask] for quickly installing Mac apps from the command line
 * [Homebrew Services] so you can easily stop, start, and restart services
-* [hub] for interacting with the GitHub API
 * [nvm] for managing Node.js versions if you do not have [Node.js] already installed (Includes latest [Node.js] and [NPM], for running apps and installing JavaScript packages)
 * [pyenv] for managing Python versions if you do not have [Python] already installed (includes the latest 3.x [Python])
 * [ruby-install] for installing different versions of Ruby
-* [Slack] for communicating with your team
-* [The Silver Searcher] for finding things in files
 * [Virtualenv] for creating isolated Python environments (via [pyenv] if it is installed)
 * [Virtualenvwrapper] for extending Virtualenv (via [pyenv] if it is installed)
-* [Zsh] as your shell
+* [Zsh] as your shell, if you choose to switch from Bash
 
 [Bundler]: http://bundler.io/
 [ChromeDriver]: http://chromedriver.chromium.org/
 [chruby]: https://github.com/postmodern/chruby
-[CloudApp]: http://getcloudapp.com/
-[Cloud Foundry CLI]: https://github.com/cloudfoundry/cli
 [Docker]: https://www.docker.com/
-[git-seekret]: https://github.com/18F/git-seekret
 [Homebrew]: http://brew.sh/
-[Homebrew Cask]: https://github.com/Homebrew/homebrew-cask
-[Homebrew Services]: https://github.com/Homebrew/homebrew-services
 [hub]: https://github.com/github/hub
 [n]: https://github.com/tj/n
 [Node.js]: http://nodejs.org/
@@ -194,11 +84,10 @@ What it sets up
 [rbenv]: https://github.com/rbenv/rbenv
 [Ruby]: https://www.ruby-lang.org/en/
 [ruby-install]: https://github.com/postmodern/ruby-install
-[Slack]: https://slack.com/
-[The Silver Searcher]: https://github.com/ggreer/the_silver_searcher
 [Virtualenv]: https://virtualenv.pypa.io/en/latest/
 [Virtualenvwrapper]: http://virtualenvwrapper.readthedocs.org/en/latest/#
 [Zsh]: http://www.zsh.org/
+
 It should take less than 15 minutes to install (depends on your machine and
 internet connection).
 
@@ -216,8 +105,8 @@ you can use to get started.
 cd ~
 
 # Download the sample files to your computer
-curl --remote-name https://raw.githubusercontent.com/18F/laptop/master/.laptop.local
-curl --remote-name https://raw.githubusercontent.com/18F/laptop/master/Brewfile.local
+curl --remote-name https://raw.githubusercontent.com/cisagov/laptop/master/.laptop.local
+curl --remote-name https://raw.githubusercontent.com/cisagov/laptop/master/Brewfile.local
 ```
 
 It lets you install the following tools and apps:
@@ -233,8 +122,8 @@ It lets you install the following tools and apps:
 * [Tmux] for saving project state and switching between projects
 * [Spectacle] - automatic window manipulation
 
-[.laptop.local]: https://github.com/18F/laptop/blob/master/.laptop.local
-[Brewfile.local]: https://github.com/18F/laptop/blob/master/Brewfile.local
+[.laptop.local]: https://github.com/cisagov/laptop/blob/master/.laptop.local
+[Brewfile.local]: https://github.com/cisagov/laptop/blob/master/Brewfile.local
 [VSCode]: https://code.visualstudio.com/
 [Atom]: https://atom.io/
 [Sublime Text 3]: http://www.sublimetext.com/3
@@ -302,14 +191,13 @@ brew install zsh
 Credits
 -------
 
-The 18F laptop script is based on and inspired by
-[thoughtbot's laptop](https://github.com/thoughtbot/laptop) script.
+The cisagov laptop script is based on and inspired by [18F's laptop](https://github.com/18f/laptop) script, which is based on and inspired by [thoughtbot's laptop](https://github.com/thoughtbot/laptop) script.
 
 ### Public domain
 
 thoughtbot's original work remains covered under an [MIT License](https://github.com/thoughtbot/laptop/blob/c997c4fb5a986b22d6c53214d8f219600a4561ee/LICENSE).
 
-18F's work on this project is in the worldwide [public domain](LICENSE.md), as are contributions to our project. As stated in [CONTRIBUTING](CONTRIBUTING.md):
+CISA and 18F's work on this project is in the worldwide [public domain](LICENSE.md), as are contributions to our project. As stated in [CONTRIBUTING](CONTRIBUTING.md):
 
 > This project is in the public domain within the United States, and copyright and related rights in the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 >
