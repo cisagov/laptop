@@ -110,26 +110,6 @@ tap_is_installed() {
   brew tap -1 | grep -Fqx "$1"
 }
 
-# gem_install_or_update() {
-#   if gem list "$1" | grep "^$1 ("; then
-#     fancy_echo "Updating %s ..." "$1"
-#     gem update "$@"
-#   else
-#     fancy_echo "Installing %s ..." "$1"
-#     gem install "$@"
-#   fi
-# }
-
-# latest_installed_ruby() {
-#   find "$HOME/.rubies" -maxdepth 1 -name 'ruby-*' | tail -n1 | grep -E -o '\d+\.\d+\.\d+'
-# }
-
-# switch_to_latest_ruby() {
-#   # shellcheck disable=SC1091
-#   . /usr/local/share/chruby/chruby.sh
-#   chruby "ruby-$(latest_installed_ruby)"
-# }
-
 # Main Execution
 laptop_script_url="https://raw.githubusercontent.com/cisagov/laptop/master/laptop"
 
@@ -171,6 +151,16 @@ else
   fancy_echo "Some formulas or casks failed to install."
   echo "This is usually due to one of the Mac apps being already installed,"
   echo "in which case, you can ignore these errors."
+fi
+
+# Install MIT kerberos via Brew
+if ! brew_is_installed "krb5"; then
+  fancy_echo "Installing MIT Kerberos"
+  brew install krb5
+  # shellcheck disable=SC2016
+  append_to_shell_file 'export PATH="/usr/local/opt/krb5/bin:/usr/local/opt/krb5/sbin:$PATH"'
+else
+  fancy_echo "MIT Kerberos already installed"
 fi
 
 # Install Node/NVM
@@ -257,63 +247,6 @@ fancy_echo "Install pre-commit hooks for linters and black"
 pip3 install pre-commit flake8 flake8-docstrings black
 
 fancy_echo '...Finished Python installation checks.'
-
-# Install and set up Ruby
-# fancy_echo 'Checking on Ruby installation...'
-
-# append_to_file "$HOME/.gemrc" 'gem: --no-document'
-
-# # For all other shells, install chruby as long as rbenv is not installed
-# if command -v rbenv >/dev/null || command -v rvm >/dev/null; then
-#   fancy_echo 'We recommend chruby and ruby-install over RVM or rbenv'
-# else
-#   if ! brew_is_installed "chruby"; then
-#     fancy_echo 'Installing chruby, ruby-install, and the latest Ruby...'
-
-#     brew bundle --file=- <<EOF
-#     brew 'chruby'
-#     brew 'ruby-install'
-# EOF
-
-#     append_to_shell_file 'source /usr/local/share/chruby/chruby.sh'
-#     append_to_shell_file 'source /usr/local/share/chruby/auto.sh'
-
-#     ruby-install ruby
-
-#     append_to_shell_file "chruby ruby-$(latest_installed_ruby)"
-
-#     switch_to_latest_ruby
-#   else
-#     brew bundle --file=- <<EOF
-#     brew 'chruby'
-#     brew 'ruby-install'
-# EOF
-#     fancy_echo 'Checking if a newer version of Ruby is available...'
-#     switch_to_latest_ruby
-
-#     ruby-install --latest > /dev/null
-#     latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
-
-#     if ! [ "$latest_stable_ruby" = "$(latest_installed_ruby)" ]; then
-#       fancy_echo "Installing latest stable Ruby version: $latest_stable_ruby"
-#       ruby-install ruby
-#     else
-#       fancy_echo 'You have the latest version of Ruby'
-#     fi
-#   fi
-# fi
-
-# # Update Ruby
-# fancy_echo 'Updating Rubygems...'
-# gem update --system
-
-# gem_install_or_update 'bundler'
-
-# fancy_echo "Configuring Bundler ..."
-# number_of_cores=$(sysctl -n hw.ncpu)
-# bundle config --global jobs $((number_of_cores - 1))
-
-# fancy_echo '...Finished Ruby installation checks.'
 
 if [ -f "$HOME/.laptop.local" ]; then
   # shellcheck source=/dev/null
