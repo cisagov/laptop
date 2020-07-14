@@ -107,7 +107,7 @@ brew_is_installed() {
 }
 
 tap_is_installed() {
-  brew tap -1 | grep -Fqx "$1"
+  brew tap | grep -Fqx "$1"
 }
 
 # Main Execution
@@ -121,7 +121,7 @@ append_to_shell_file 'export PATH="$HOME/.bin:$PATH"'
 # Install Homebrew
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
   # shellcheck disable=SC2016
   append_to_shell_file 'export PATH="/usr/local/bin:$PATH"'
