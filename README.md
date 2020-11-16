@@ -2,9 +2,11 @@
 
 [![GitHub Build Status](https://github.com/cisagov/laptop/workflows/build/badge.svg)](https://github.com/cisagov/laptop/actions)
 
-Laptop is a script to set up an OS X computer for web development, and to keep it up to date.
+Laptop is a script to set up an OS X computer for web development, and to keep
+it up to date.
 
-It can be run multiple times on the same machine safely. It installs, upgrades, or skips packages based on what is already installed on the machine.
+It can be run multiple times on the same machine safely. It installs, upgrades,
+or skips packages based on what is already installed on the machine.
 
 ## Requirements ##
 
@@ -32,6 +34,7 @@ In your Terminal window, copy and paste the command below, then press `return`.
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/cisagov/laptop/master/laptop)
 ```
+
 The [script](https://github.com/cisagov/laptop/blob/master/mac) itself is
 available in this repo for you to review if you want to see what it does
 and how it works.
@@ -53,8 +56,7 @@ at your convenience by typing `laptop` and hitting `return` in your Terminal.
 [Spotlight]: https://support.apple.com/en-us/HT204014
 [video]: https://github.com/18F/laptop/wiki/Detailed-installation-instructions-with-video
 
-What it sets up
----------------
+### What it sets up ###
 
 * [ChromeDriver] for headless website testing
 * [chruby] for managing [Ruby] versions (or, when using a fish shell, [rbenv])
@@ -62,10 +64,14 @@ What it sets up
 * [GitHub Desktop] for setting up your SSH keys automatically
 * [Homebrew] for managing operating system libraries
 * [Homebrew Services] so you can easily stop, start, and restart services
-* [nvm] for managing Node.js versions if you do not have [Node.js] already installed (Includes latest [Node.js] and [NPM], for running apps and installing JavaScript packages)
-* [pyenv] for managing Python versions if you do not have [Python] already installed (includes the latest 3.x [Python])
+* [nvm] for managing Node.js versions if you do not have [Node.js] already
+  installed (Includes latest [Node.js] and [NPM], for running apps and installing
+  JavaScript packages)
+* [pyenv] for managing Python versions if you do not have [Python] already
+  installed (includes the latest 3.x [Python])
 * [ruby-install] for installing different versions of Ruby
-* [Virtualenv] for creating isolated Python environments (via [pyenv] if it is installed)
+* [Virtualenv] for creating isolated Python environments (via [pyenv] if it is
+  installed)
 * [Virtualenvwrapper] for extending Virtualenv (via [pyenv] if it is installed)
 * [Zsh] as your shell, if you choose to switch from Bash
 
@@ -90,8 +96,7 @@ What it sets up
 It should take less than 15 minutes to install (depends on your machine and
 internet connection).
 
-Customize in `~/.laptop.local` and `~/Brewfile.local`
------------------------------------------------------
+### Customize in `~/.laptop.local` and `~/Brewfile.local` ###
 
 Your `~/.laptop.local` is run at the end of the `mac` script.
 Put your customizations there. If you want to install additional
@@ -140,8 +145,8 @@ See the `mac` script for examples.
 Laptop functions such as `fancy_echo` and `gem_install_or_update` can be used
 in your `~/.laptop.local`.
 
-What about background services (Redis, Postgres, MySQL, etc.)?
-----------------------------------------------------------
+### How to handle background services (Redis, Postgres, MySQL, etc.) ###
+
 The script does not automatically install services like databases because you
 may not need any particular one, or you may need specific versions, not just
 the latest.  For services, we recommend using [Docker].  For example, you can
@@ -158,8 +163,8 @@ relationships, cutting out the need to manually setup each service.
 [Docker Compose]: https://docs.docker.com/compose/
 [docker run]: https://docs.docker.com/engine/reference/run/#expose-incoming-ports
 
-How to switch your shell back to bash from zsh (or vice versa)
---------------------------------------------------------------
+### How to switch your shell back to bash from zsh (or vice versa) ###
+
 1. Find out which shell you're currently running: `echo $SHELL`
 2. Find out the location of the shell you want to switch to. For example, if
    you want to switch to `bash`, run `which bash`.
@@ -179,11 +184,14 @@ How to switch your shell back to bash from zsh (or vice versa)
 
 Whether you're using bash or zsh, we recommend installing the latest versions
 with Homebrew because the versions that came with your Mac are really old.
-```
+
+```console
 brew install bash
 ```
+
 or
-```
+
+```console
 brew install zsh
 ```
 
@@ -194,14 +202,23 @@ details.
 
 ## Credits ##
 
-The cisagov laptop script is based on and inspired by [18F's laptop](https://github.com/18f/laptop) script, which is based on and inspired by [thoughtbot's laptop](https://github.com/thoughtbot/laptop) script.
+The cisagov laptop script is based on and inspired by
+[18F's laptop](https://github.com/18f/laptop) script, which is based on and
+inspired by [thoughtbot's laptop](https://github.com/thoughtbot/laptop) script.
 
 ## Public domain ##
 
-thoughtbot's original work remains covered under an [MIT License](https://github.com/thoughtbot/laptop/blob/c997c4fb5a986b22d6c53214d8f219600a4561ee/LICENSE).
+thoughtbot's original work remains covered under an
+[MIT License](https://github.com/thoughtbot/laptop/blob/c997c4fb5a986b22d6c53214d8f219600a4561ee/LICENSE).
 
-CISA and 18F's work on this project is in the worldwide [public domain](LICENSE.md), as are contributions to our project. As stated in [CONTRIBUTING](CONTRIBUTING.md):
+CISA and 18F's work on this project is in the worldwide
+[public domain](LICENSE.md), as are contributions to our project. As stated in
+[CONTRIBUTING](CONTRIBUTING.md):
 
-> This project is in the public domain within the United States, and copyright and related rights in the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+> This project is in the public domain within the United States, and copyright and
+> related rights in the work worldwide are waived through the [CC0 1.0 Universal
+> public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 >
-> All contributions to this project will be released under the CC0 dedication. By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
+> All contributions to this project will be released under the CC0 dedication. By
+> submitting a pull request, you are agreeing to comply with this waiver of
+> copyright interest.

@@ -39,4 +39,3 @@ cask 'docker'
 
 tap 'liamg/tfsec'
 brew 'liamg/tfsec/tfsec'
-
