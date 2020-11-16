@@ -1,12 +1,12 @@
-Laptop
-======
+# Laptop #
+
+[![GitHub Build Status](https://github.com/cisagov/laptop/workflows/build/badge.svg)](https://github.com/cisagov/laptop/actions)
 
 Laptop is a script to set up an OS X computer for web development, and to keep it up to date.
 
 It can be run multiple times on the same machine safely. It installs, upgrades, or skips packages based on what is already installed on the machine.
 
-Requirements
-------------
+## Requirements ##
 
 We support:
 
@@ -19,8 +19,7 @@ We support:
 Older versions may work but aren't regularly tested. Bug reports for older
 versions are welcome.
 
-Install
--------
+## Install ##
 
 Begin by opening the Terminal application on your Mac. The easiest way to open
 an application in OS X is to search for it via [Spotlight]. The default
@@ -188,12 +187,16 @@ or
 brew install zsh
 ```
 
-Credits
--------
+## Contributing ##
+
+We welcome contributions!  Please see [`CONTRIBUTING.md`](CONTRIBUTING.md) for
+details.
+
+## Credits ##
 
 The cisagov laptop script is based on and inspired by [18F's laptop](https://github.com/18f/laptop) script, which is based on and inspired by [thoughtbot's laptop](https://github.com/thoughtbot/laptop) script.
 
-### Public domain
+## Public domain ##
 
 thoughtbot's original work remains covered under an [MIT License](https://github.com/thoughtbot/laptop/blob/c997c4fb5a986b22d6c53214d8f219600a4561ee/LICENSE).
 
